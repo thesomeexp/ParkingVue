@@ -37,7 +37,8 @@
         LoginTest() {
           // 取得提交的对象
           let req_data = {
-            phone: this.phone, password: this.password
+            phone: this.phone,
+            password: this.password
           };
           // 转换为formData
           let str = this.$qs.stringify(req_data)
@@ -60,19 +61,12 @@
                 // 存储token到localStorage
                 window.localStorage.setItem("accessToken", result.data.token);
               }
-
               // console.log(response.data)
             })
             .catch((err)=>{
               console.log('err: ' + err)
             })
-
-
-
-
         }
-
-
       }
     }
 </script>

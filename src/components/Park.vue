@@ -42,18 +42,6 @@
               this.information = res.data.data.infos; //获取RAP2中data里的infos中的数据
             });
           },
-          // gotolink(){
-          //   // 指定跳转网页
-          //   this.$router.replace('/info/');
-          //   alert(document.getElementById("getId").value);
-          //   this.$http.get("http://rap2.taobao.org:38080/app/mock/257039/infos/1").then(res=>{
-          //     this.information = res.data.data.info;
-          //     if(res.status == "success"){
-          //       alert("查询成功");
-          //     }
-          //   })
-          //   },
-          //
         },
         components:{},
         created() {
