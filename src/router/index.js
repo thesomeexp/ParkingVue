@@ -7,6 +7,7 @@ import LoginTokenDemo from "../components/LoginTokenDemo";
 import GetDataTest from "../components/GetDataTest";
 import testHeader from "../components/postHeader";
 import RegisterDemo from "../components/RegisterDemo";
+import UploadHeadDemo from "../components/UploadHeadDemo"
 
 Vue.use(Router)
 
@@ -20,5 +21,7 @@ export default new Router({
     {path: '/gdata', component: GetDataTest},
     {path: '/testHeader', component: testHeader},
     {path: '/register', component: RegisterDemo},
+    {path: '/uploadHeadDemo', component: UploadHeadDemo}
+
   ]
 })
