@@ -21,7 +21,7 @@ export default new Router({
     {path: '/gdata', component: GetDataTest},
     {path: '/testHeader', component: testHeader},
     {path: '/register', component: RegisterDemo},
-    {path: '/uploadHeadDemo', component: UploadHeadDemo}
+    {path: '/head', component: UploadHeadDemo}
 
   ]
 })

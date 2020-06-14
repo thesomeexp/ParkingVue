@@ -1,6 +1,7 @@
 <template>
   <div>
-    <h1>停车场信息</h1>
+    <h1 style="text-align: center">停车场信息</h1>
+    <div style="margin-left: 420px">
     <table border="1">
       <tr style="text-align: center">
         <td>停车场编号</td>
@@ -23,9 +24,11 @@
         <td><a href="javascript:;" @click="delRow(info.id)">删除</a> <a :href="'#/infos/edit?id='+info.id">修改</a></td>
       </tr>
     </table>
-    <div style="width: 600px;height: 600px">
+    </div>
+    <div style="width: 800px;height: 800px;margin: 50px auto">
       <canvas id="myChart" ></canvas>
     </div>
+
   </div>
 
 </template>

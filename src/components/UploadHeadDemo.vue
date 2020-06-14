@@ -8,6 +8,7 @@
         </td>
       </tr>
       <tr>
+        <td>注意:文件大小不大于2MB</td>
         <td colspan="2">
           <a href="#"  @click="add">提交</a>
         </td>
@@ -48,14 +49,15 @@
           let req_data = {
             image: this.file
           };
-          console.log(this.file)
+            console.log(this.file)
           let str = this.$qs.stringify(req_data)
           let that = this;
           // console.log(that.accessToken)
           this.$http.post(url,formData,
             {
               headers: {
-                'Authorization': 'Bearer ' + that.accessToken
+                'Authorization': 'Bearer ' + that.accessToken,
+                // 'Access-Control-Allow-Origin': '*'
               }
             }
           ).then(function(response){
@@ -68,7 +70,7 @@
 
             console.log(response)
           });
-        }
+        },
 
       }
     }

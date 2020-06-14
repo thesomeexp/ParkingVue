@@ -1,6 +1,7 @@
 <template>
   <div>
-    <h1>停车场列表</h1>
+    <h1 style="text-align: center">停车场列表</h1>
+    <div style="margin-left: 420px" >
     <table border="1">
       <tr style="text-align: center">
         <td>停车场编号</td>
@@ -24,6 +25,7 @@
       </tr>
     </table>
     <a href="">添加</a><br>
+    </div>
     <router-view/>
   </div>
 </template>

@@ -9,6 +9,7 @@ import qs from 'qs'
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
 Vue.prototype.$qs = qs;
+// Axios.defaults.baseURL = '/head'
 
 /* eslint-disable no-new */
 new Vue({

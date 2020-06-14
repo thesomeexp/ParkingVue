@@ -1,25 +1,29 @@
 <template>
     <div>
-      LoginTokenDemo
+      <h1 style="text-align: center">Welcome to login page!</h1>
+      <div style="margin-left: 550px">
       <table>
         <tr>
           <td>
             phone
           </td>
           <td>
-            <input v-model="phone">
+            <input type="text" placeholder="Please input your phone" v-model="phone"/>
           </td>
         </tr>
+        <p/>
         <tr>
           <td>
             password
           </td>
           <td>
-            <input v-model="password">
+            <input type="text" placeholder="Please input your password" v-model="password">
           </td>
         </tr>
       </table>
+        <p/>
       <button @click="LoginTest" >登录测试Axios</button>
+      </div>
     </div>
 </template>
 
@@ -72,5 +76,21 @@
 </script>
 
 <style scoped>
-
+  input{
+    border: 1px solid #ccc;
+    padding: 7px 33px;
+    border-radius: 3px;
+    padding-left: 5px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s
+  }
+  input:focus{
+    border-color: #66afe9;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6)
+  }
 </style>
