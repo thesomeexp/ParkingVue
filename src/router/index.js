@@ -8,6 +8,7 @@ import GetDataTest from "../components/GetDataTest";
 import testHeader from "../components/postHeader";
 import RegisterDemo from "../components/RegisterDemo";
 import UploadHeadDemo from "../components/UploadHeadDemo"
+import ImageCORSTest from "../components/ImageCORSTest"
 
 Vue.use(Router)
 
@@ -21,7 +22,8 @@ export default new Router({
     {path: '/gdata', component: GetDataTest},
     {path: '/testHeader', component: testHeader},
     {path: '/register', component: RegisterDemo},
-    {path: '/head', component: UploadHeadDemo}
-
+    {path: '/head', component: UploadHeadDemo},
+    {path: '/uploadHeadDemo', component: UploadHeadDemo},
+    {path: '/ImageCORSTest', component: ImageCORSTest}
   ]
 })
