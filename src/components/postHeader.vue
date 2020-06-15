@@ -21,7 +21,8 @@
       methods: {
         LoginTest() {
           const req_data = {
-            phone: this.phone, password: this.password
+            phone: this.phone,
+            password: this.password
           };
           let str = this.$qs.stringify(req_data)
 

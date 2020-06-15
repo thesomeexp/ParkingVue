@@ -1,48 +1,80 @@
 <template>
     <div>
       <h1 style="text-align: center">Welcome to register page!</h1>
-      <form action="" method="post" id="register">
-        <table>
-          <tr>
-            <td>Name</td>
-            <td><input v-model="name" type="text" placeholder="Please input your name"></td>
-          </tr>
-          <tr>
-            <td>Password</td>
-            <td><input v-model="password" type="password" placeholder="Please input your password"></td>
-          </tr>
-          <tr>
-            <td>Phone</td>
-            <td><input v-model="phone" type="text" placeholder="Please input your phone"> </td>
-          </tr>
-        </table>
-        <input type="button" value="Register" @click="Register()">
-        <input type="reset"  value="Reset">
-      </form>
-    </div>
+      <el-form :model="ruleForm2" status-icon :rules="rules2" ref="ruleForm2" label-width="100px" class="demo-ruleForm">
+        <el-form-item label="姓名" prop="name">
+          <el-input type="text" v-model="ruleForm2.name" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="密码" prop="password">
+          <el-input type="password" v-model="ruleForm2.password" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="确认密码" prop="checkPass">
+          <el-input type="password" v-model="ruleForm2.checkPass" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="电话" prop="phone">
+          <el-input v-model.number="ruleForm2.phone"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="Register()">提交</el-button>
+          <el-button @click="resetForm('ruleForm2')">重置</el-button>
+        </el-form-item>
+      </el-form>
+      </div>
 </template>
 
 <script>
     export default {
         name: "RegisterDemo",
         data(){
-            return{
-              name:'',
-              password:'',
-              phone:''
+          let validatePass = (rule, value, callback) => {
+            if (value === '') {
+              callback(new Error('请输入密码'));
+            } else {
+              if (this.ruleForm2.checkPass !== '') {
+                this.$refs.ruleForm2.validateField('checkPass');
+              }
+              callback();
             }
+          };
+          let validatePass2 = (rule, value, callback) => {
+            if (value === '') {
+              callback(new Error('请再次输入密码'));
+            } else if (value !== this.ruleForm2.password) {
+              callback(new Error('两次输入密码不一致!'));
+            } else {
+              callback();
+            }
+          };
+            return{
+              ruleForm2: {
+                name:'',
+                password: '',
+                checkPass: '',
+                phone: ''
+              },
+              rules2: {
+                pass: [
+                  { validator: validatePass, trigger: 'blur' }
+                ],
+                checkPass: [
+                  { validator: validatePass2, trigger: 'blur' }
+                ],
+              }
+            };
         },
+
         methods:{
           Register(){
             //取得表单对象
             let req_data = {
-              name: this.name,
-              password: this.password,
-              phone: this.phone
+              name: this.ruleForm2.name,
+              password: this.ruleForm2.password,
+              checkPass: this.ruleForm2.checkPass,
+              phone: this.ruleForm2.phone
             }
             //讲表单对象转换成formdata
             let str = this.$qs.stringify(req_data);
-            console.log("表单姓名密码" + this.name+this.password)
+            console.log("表单姓名密码" + this.ruleForm2.name + this.ruleForm2.password)
             console.log("转换的formData" + str)
             this.$http
               .post('http://localhost:9001/user-api/register',
@@ -55,26 +87,29 @@
                 console.log('err: ' + err)
               })
           },
+          submitForm(formName) {
+            this.$refs[formName].validate((valid) => {
+              if (valid) {
+                alert('submit!');
+              } else {
+                console.log('error submit!!');
+                return false;
+              }
+            });
+          },
+          resetForm(formName) {
+            this.$refs[formName].resetFields();
+          }
           }
     }
 </script>
 
 <style scoped>
-  input{
-    border: 1px solid #ccc;
-    padding: 7px 0px;
-    border-radius: 3px;
-    padding-left:5px;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
-    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
-    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
-    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s
-  }
-  input:focus{
-    border-color: #66afe9;
-    outline: 0;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
-    box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6)
+  .el-form{
+    width: 30%;
+    position: absolute;
+    left: 50%;
+    transform: translate(-60%,10%);
+    text-align: center;
   }
 </style>

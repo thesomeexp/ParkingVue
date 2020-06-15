@@ -5,11 +5,14 @@ import App from './App'
 import router from './router'
 import axios from 'axios'
 import qs from 'qs'
+/* 完整引入elmentui*/
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
 
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
 Vue.prototype.$qs = qs;
-// Axios.defaults.baseURL = '/head'
+Vue.use(ElementUI);
 
 /* eslint-disable no-new */
 new Vue({

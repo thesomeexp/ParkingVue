@@ -15,7 +15,6 @@
       </tr>
     </table>
   </div>
-
 </template>
 
 <script>
@@ -33,7 +32,6 @@
           this.file = event.target.files[0];
         },
         add: function () {
-
           // 获取本地token, 判断是否登录
           let localStorageToken = localStorage.getItem("accessToken")
           // 如果本地token不为空则设置到请求头去
@@ -57,7 +55,6 @@
             {
               headers: {
                 'Authorization': 'Bearer ' + that.accessToken,
-                // 'Access-Control-Allow-Origin': '*'
               }
             }
           ).then(function(response){
@@ -67,7 +64,6 @@
             headImage.value = ''
             that.file = null;
             // headImage.outerHTML = headImage.outerHTML
-
             console.log(response)
           });
         },
