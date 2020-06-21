@@ -1,9 +1,11 @@
 <template>
     <div>
-      <el-menu class="el-menu-demo" mode="horizontal" @select="handleSelect">
-        <el-menu-item index="1"><i class="el-icon-house" /><a href="/">首页</a></el-menu-item>
+      <el-menu class="el-menu-demo" mode="horizontal" @select="handleSelect" v-show="!(path === '/login')">
+        <el-menu-item index="1">
+          <i class="el-icon-house"/><a href="/home">首页</a>
+        </el-menu-item>
         <el-submenu index="2">
-          <template slot="title"><i class="el-icon-s-tools" />停车场管理</template>
+          <template slot="title"><i class="el-icon-s-tools"/>停车场管理</template>
           <el-menu-item index="2-1"><a href="/listPark">所有停车场</a></el-menu-item>
           <el-menu-item index="2-2"><a href="/listMyPark">我提交的停车位</a></el-menu-item>
           <el-menu-item index="2-3"><a href="/listDisablePark">已禁用的停车位</a></el-menu-item>
@@ -12,8 +14,8 @@
           <el-menu-item index="2-6"><a href="/addstate">添加停车场状态</a></el-menu-item>
           <el-menu-item index="2-7"><a href="/addparking">添加停车位</a></el-menu-item>
         </el-submenu>
-        <el-menu-item index="3"><i class="el-icon-circle-plus" /><a href="/register">注册</a></el-menu-item>
-        <el-menu-item index="4"><i class="el-icon-s-custom" /><a href="/login">登录</a></el-menu-item>
+        <el-menu-item index="3"><i class="el-icon-circle-plus"/><a href="/register">注册</a></el-menu-item>
+        <el-menu-item index="4"><i class="el-icon-s-custom"/><a href="/login">登录</a></el-menu-item>
       </el-menu>
       <router-view/>
     </div>
@@ -28,8 +30,22 @@ export default {
     }
   },
   data(){
-    return{}
+    return{
+      path:''
+    }
   },
+
+  // 判断路由
+  mounted() {
+    this.path = this.$route.path;   //this.path = 当前页面路由
+    // console.log(this.$route.path)
+  },
+  //监听路由变化
+  watch:{
+    $route(to,from){
+      this.path = to.path //打开新页面路由
+    }
+  }
 }
 </script>
 
