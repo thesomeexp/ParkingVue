@@ -1,56 +1,20 @@
 <template>
   <div>
-<!--          <el-form :model="parking" status-icon ref="parking" label-width="130px" class="demo-ruleForm">-->
-<!--            <el-form-item label="请输入停车场名称" prop="name">-->
-<!--              <el-input type="text" v-model="parking.name" auto-complete="off"></el-input>-->
-<!--            </el-form-item>-->
-<!--            <el-form-item label="请输入停车场描述" prop="content">-->
-<!--              <el-input type="text" v-model="parking.content" auto-complete="off"></el-input>-->
-<!--            </el-form-item>-->
-<!--            <el-form-item label="请输入停车场经度" prop="longitude">-->
-<!--              <el-input type="text" v-model="parking.longitude" auto-complete="off"></el-input>-->
-<!--            </el-form-item>-->
-<!--            <el-form-item label="请输入停车场纬度" prop="latitude">-->
-<!--              <el-input type="text" v-model="parking.latitude" auto-complete="off"></el-input>-->
-<!--            </el-form-item>-->
-<!--            <el-upload-->
-<!--              class="upload-demo"-->
-<!--              drag-->
-<!--              action="https://jsonplaceholder.typicode.com/posts/"-->
-<!--              multiple>-->
-<!--              <i class="el-icon-upload"></i>-->
-<!--              <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>-->
-<!--              <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>-->
-<!--            </el-upload>-->
-    <form action="">
-      <table>
-        <tr>
-          <td>请输入停车场名称:
-            <label><input type="text" v-model="parking.name"></label>
-          </td>
-        </tr>
-        <tr>
-          <td>请输入停车场描述:
-            <label><input type="text" v-model="parking.content"></label>
-          </td>
-        </tr>
-        <tr>
-          <td>请输入停车场坐标:
-            <label><input type="text" v-model="parking.location"></label>
-          </td>
-        </tr>
-<!--        <tr>-->
-<!--          <td>请输入停车场纬度:-->
-<!--            <label><input type="text" v-model="parking.location.latitude"></label>-->
-<!--          </td>-->
-<!--        </tr>-->
-        <tr>
-          <td>点击上传停车场图片:<input id="headImage" accept="image/*" type="file" @change="getFile($event)"/></td>
-        </tr>
-      </table>
-    </form>
+          <el-form :model="parking" status-icon ref="parking" label-width="130px" class="demo-ruleForm">
+            <el-form-item label="停车场名称" prop="parking.name">
+              <el-input type="text" v-model="parking.name" auto-complete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="停车场描述" prop="parking.content">
+              <el-input type="text" v-model="parking.content" auto-complete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="停车场坐标" prop="parking.location">
+              <el-input type="text" v-model="parking.location" auto-complete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="停车场图片">
+              <input id="headImage" accept="image/*" type="file" @change="getFile($event)"/>
+            </el-form-item>
             <el-button type="primary" plain @click="add">提交</el-button>
-<!--          </el-form>-->
+          </el-form>
   </div>
 </template>
 
@@ -97,7 +61,7 @@
           content: this.content
         };
         console.log(this.file)
-        //讲表单对象转换成formdata
+        //将表单对象转换成formdata
         let str = this.$qs.stringify(req_data)
         let that = this;
         this.$http.post(url, formData,
@@ -110,7 +74,11 @@
           let headImage = document.getElementById('headImage')
           headImage.value = ''
           that.file = null;
-          console.log(response)
+          console.log(response.data)
+          if(response.data.status){
+            alert("添加停车位成功!")
+            location.reload();
+        }
         });
       },
     }

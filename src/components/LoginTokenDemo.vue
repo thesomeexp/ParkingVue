@@ -22,7 +22,7 @@
         </tr>
       </table>
         <p/>
-      <button @click="LoginTest" >登录测试Axios</button>
+        <button @click="LoginTest">登录</button>
       </div>
     </div>
 </template>
@@ -64,14 +64,18 @@
                 console.log(that.token)
                 // 存储token到localStorage
                 window.localStorage.setItem("accessToken", result.data.token);
+                alert('登录成功')
+                this.$router.push('/');
               }
-              // console.log(response.data)
+              else {
+                alert("登录失败,账号或密码错误")
+              }
             })
             .catch((err)=>{
               console.log('err: ' + err)
             })
+          }
         }
-      }
     }
 </script>
 
