@@ -1,7 +1,7 @@
 <template>
     <div>
       <h1 style="text-align: center">Welcome to register page!</h1>
-      <el-form :model="ruleForm2" status-icon :rules="rules2" ref="ruleForm2" label-width="100px" class="demo-ruleForm">
+      <el-form :model="ruleForm2" status-icon :rules="rules2" ref="ruleForm2" label-width="90px" style="min-width: 300px" class="demo-ruleForm">
         <el-form-item label="姓名" prop="name">
           <el-input type="text" v-model="ruleForm2.name" auto-complete="off"></el-input>
         </el-form-item>
@@ -88,16 +88,6 @@
               })
             this.$router.push('/');
           },
-          // submitForm(formName) {
-          //   this.$refs[formName].validate((valid) => {
-          //     if (valid) {
-          //       alert('submit!');
-          //     } else {
-          //       console.log('error submit!!');
-          //       return false;
-          //     }
-          //   });
-          // },
           resetForm(formName) {
             this.$refs[formName].resetFields();
           }
@@ -113,4 +103,5 @@
     transform: translate(-60%,10%);
     text-align: center;
   }
+
 </style>

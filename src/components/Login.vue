@@ -119,7 +119,7 @@
                   // 存储token到localStorage
                   window.localStorage.setItem("accessToken", result.data.token);
                   alert('登录成功')
-                  this.$router.push('/home');
+                  that.$router.push('/home');
                 }
                 else {
                   alert("登录失败,账号或密码错误")

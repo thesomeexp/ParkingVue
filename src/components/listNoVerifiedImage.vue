@@ -1,29 +1,28 @@
 <template>
-  <div>
-    <h1 style="text-align: center">已验证停车场列表</h1>
-    <el-table :data="information.slice((currentPage-1)*pageSize,currentPage*pageSize)"
-              border
-              style="width: fit-content;position: relative;margin-left: 10%"
-              :header-cell-style="{'text-align':'center'}"
-              :cell-style="{'text-align':'center'}">
-      <el-table-column prop="id" label="ID" width="120"></el-table-column>
-      <el-table-column prop="image" label="停车场图片" width="120">
-        <template slot-scope="scope">
-          <img style="height: 100px;width: 100px" :src="'http://192.168.76.56/image/'+scope.row.id+'.jpg'">
-        </template>
-      </el-table-column>
-      <el-table-column prop="name" label="停车场名称" width="120"></el-table-column>
-      <el-table-column prop="pid" label="停车场ID" width="120"></el-table-column>
-      <el-table-column prop="state" label="状态" width="120"></el-table-column>
-      <el-table-column prop="infosubmitdate" label="提交时间" width="160">
-        <template slot-scope="scope">{{ scope.row.infosubmitdate | formatDate}}</template>
-      </el-table-column>
-      <el-table-column label="操作" width="120">
-        <template slot-scope="scope">
-          <el-button type="text" size="big" @click="disableInfo(scope.row.id)">禁用</el-button>
-        </template>
-      </el-table-column>
-    </el-table>
+    <div>
+    <h1 style="text-align: center">未验证停车场列表</h1>
+      <el-table :data="information.slice((currentPage-1)*pageSize,currentPage*pageSize)"
+                border
+                style="width: fit-content;position: relative;margin-left: 10%"
+                :header-cell-style="{'text-align':'center'}"
+                :cell-style="{'text-align':'center'}">
+        <el-table-column prop="id" label="ID" width="120"></el-table-column>
+        <el-table-column prop="image" label="停车场图片" width="120">
+          <template slot-scope="scope">
+            <img style="height: 100px;width: 100px" :src="'http://192.168.76.56/image/info_detail/'+scope.row.pid+'/'+scope.row.id+'.jpg'">
+          </template>
+        </el-table-column>
+        <el-table-column prop="pid" label="停车场ID" width="120"></el-table-column>
+        <el-table-column prop="state" label="状态" width="120"></el-table-column>
+        <el-table-column prop="submitdate" label="提交时间" width="160">
+          <template slot-scope="scope">{{ scope.row.submitdate | formatDate}}</template>
+        </el-table-column>
+        <el-table-column label="操作" width="120">
+          <template slot-scope="scope">
+            <el-button type="text" size="big" @click="VerifiedInfo(scope.row.id)">通过验证</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
     <br>
     <el-pagination
       style="margin-left: 40%"
@@ -36,13 +35,13 @@
       :total="information.length">
     </el-pagination>
     <router-view/>
-  </div>
+    </div>
 </template>
 
 <script>
     import {formatDate} from '@/utils/filters/formatDate.js'
     export default {
-      name: "listVerifiedPark",
+      name: "listNoVerifiedImage",
       data(){
         return{
           information:[],
@@ -71,7 +70,8 @@
           console.log(this.information.length)
         },
 
-        disableInfo:function (id) {
+        //验证详情
+        VerifiedInfo:function (id) {
           // 获取本地token, 判断是否登录
           let localStorageToken = localStorage.getItem("accessToken")
           // 如果本地token不为空则设置到请求头去
@@ -82,21 +82,21 @@
             return
           }
           let formData = new FormData();
-          formData.append('pid',id);
-          this.$http.put("http://localhost:9001/infos-api/admin/infos/"+id,formData,{
-            params: {state: 'disable'},
-            headers: {'Authorization': 'Bearer ' + this.accessToken}
+          formData.append('id',id);
+          this.$http.put("http://localhost:9001/infoImage-api/admin/infoimage/"+id,formData,{
+            params: {state: 'verified'},
+            headers: {'Authorization': 'Bearer ' + this.accessToken},
           }).then(res=>{
             console.log(res.data.status)
             if(res.data.status === 'success'){
-              alert('禁用成功')
-              // location.reload();
-              this.$router.push('/backToVerified')
+              alert('验证成功')
+              this.$router.push('/backToNoVerified');
             }
           })
         },
 
-        list () {
+        //列出所有未验证的详情
+        listNoVerified () {
           console.log("list的方法")
           // 获取本地token, 判断是否登录
           let localStorageToken = localStorage.getItem("accessToken")
@@ -108,7 +108,7 @@
             return
           }
           let that = this
-          this.$http.get("http://localhost:9001/infos-api/admin/infos/verified?page=1&pagesize=100",
+          this.$http.get("http://localhost:9001/infoImage-api/admin/infoimage/no_verified?page=1&pagesize=100",
             {
               headers: {'Authorization': 'Bearer ' + this.accessToken}
             }).then((res) => {
@@ -119,9 +119,9 @@
       },
 
       created() {
-        this.list();
+        this.listNoVerified();
+      },
       }
-    }
 </script>
 
 <style scoped>

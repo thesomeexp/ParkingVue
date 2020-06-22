@@ -1,20 +1,22 @@
 <template>
   <div>
-          <el-form :model="parking" status-icon ref="parking" label-width="130px" class="demo-ruleForm">
-            <el-form-item label="停车场名称" prop="parking.name">
-              <el-input type="text" v-model="parking.name" auto-complete="off"></el-input>
-            </el-form-item>
-            <el-form-item label="停车场描述" prop="parking.content">
-              <el-input type="text" v-model="parking.content" auto-complete="off"></el-input>
-            </el-form-item>
-            <el-form-item label="停车场坐标" prop="parking.location">
-              <el-input type="text" v-model="parking.location" auto-complete="off"></el-input>
-            </el-form-item>
-            <el-form-item label="停车场图片">
-              <input id="headImage" accept="image/*" type="file" @change="getFile($event)"/>
-            </el-form-item>
-            <el-button type="primary" plain @click="add">提交</el-button>
-          </el-form>
+      <h1 style="text-align: center">添加停车场</h1>
+      <el-form :model="parking" status-icon ref="parking" label-width="130px" class="demo-ruleForm">
+        <el-form-item label="停车场名称" prop="parking.name">
+          <el-input type="text" v-model="parking.name" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="停车场描述" prop="parking.content">
+          <el-input type="text" v-model="parking.content" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="停车场坐标" prop="parking.location">
+          <el-input type="text" v-model="parking.location" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="停车场图片">
+          <input id="headImage" accept="image/*" type="file" @change="getFile($event)"/>
+        </el-form-item>
+        <el-button type="primary" plain @click="add">提交</el-button>
+      </el-form>
+      <router-view/>
   </div>
 </template>
 
@@ -77,8 +79,8 @@
           console.log(response.data)
           if(response.data.status){
             alert("添加停车位成功!")
-            location.reload();
-        }
+            that.$router.push('/home')
+          }
         });
       },
     }

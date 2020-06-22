@@ -15,25 +15,24 @@
                   查询
         </el-button>
         <br>
+        <br>
       <el-table :data="information.slice((currentPage-1)*pageSize,currentPage*pageSize)"
                 border
                 style="width: fit-content;position: relative;margin-left: 10%"
                 :header-cell-style="{'text-align':'center'}"
                 :cell-style="{'text-align':'center'}"
-                >
-          <el-table-column prop="id" label="停车场编号" width="120"></el-table-column>
-          <el-table-column prop="name" label="停车场名称" width="120"></el-table-column>
-          <el-table-column prop="content" label="停车场描述" width="120"></el-table-column>
-          <el-table-column prop="longitude" label="经度" width="120"></el-table-column>
-          <el-table-column prop="latitude" label="纬度" width="120"></el-table-column>
-          <el-table-column prop="uid" label="停车用户编号" width="120"></el-table-column>
-          <el-table-column prop="state" label="状态" width="120"></el-table-column>
-          <el-table-column label="操作" width="120">
-            <template slot-scope="scope">
-                <el-button type="text" @click="handleWatch(scope.row.id)" size="big">查看{{scope.row.id}}</el-button>
-<!--                <a :href="'#/findById/' + scope.row.id">查看</a>-->
-            </template>
-          </el-table-column>
+      >
+        <el-table-column prop="id" label="ID" width="120"></el-table-column>
+        <el-table-column prop="name" label="停车场名称" width="120"></el-table-column>
+        <el-table-column prop="content" label="图片" width="120"></el-table-column>
+        <el-table-column prop="longitude" label="停车场ID" width="120"></el-table-column>
+        <el-table-column prop="uid" label="停车用户编号" width="120"></el-table-column>
+        <el-table-column prop="state" label="状态" width="120"></el-table-column>
+        <el-table-column label="操作" width="120">
+          <template slot-scope="scope">
+            <el-button type="text" @click="handleWatch(scope.row.id)" size="big">查看{{scope.row.id}}</el-button>
+          </template>
+        </el-table-column>
       </el-table>
     </div>
     <br>
@@ -108,9 +107,12 @@
           {
             headers: {
               'Authorization': 'Bearer ' + this.accessToken
-            }
+            },
+            // params: {
+            //   pagesize : that.information.data.data
+            // }
           }).then((res) => {
-          console.log(res.data.data.list)
+          console.log(res.data)
           that.information = res.data.data.list;
         });
       },
@@ -128,32 +130,6 @@
           console.log(res.data.status)
         })
       },
-
-
-      findById: function (id) {
-        // // 获取本地token, 判断是否登录
-        // let localStorageToken = localStorage.getItem("accessToken")
-        // // 如果本地token不为空则设置到请求头去
-        // if (localStorageToken != null) {
-        //   this.accessToken = localStorageToken
-        // } else {
-        //   alert("未登录")
-        //   return
-        // }
-        // let that = this
-        // this.$router.push({
-        //   path: '/findById/'+id,
-        //   params: {id: id}
-        // })
-        //   this.$http.get("http://localhost:9001/infos-api/infos/"+id, {
-        //     headers: {
-        //       'Authorization': 'Bearer ' + this.accessToken
-        //     }
-        //   }).then(res => {
-        //     console.log(res)
-        //     that.information = res.data.data.list;
-        //   })
-        // },
       },
 
 
@@ -161,8 +137,7 @@
         $route() {
           this.getData(); //当对象改变，执行操作获取新数据
         }
-      }
-    },
+      },
 
 
     created() {

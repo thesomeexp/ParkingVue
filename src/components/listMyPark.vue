@@ -39,6 +39,7 @@
 
 <script>
   import {formatDate} from '@/utils/filters/formatDate.js'
+
   export default {
     name: "listMyPark",
     filters: {

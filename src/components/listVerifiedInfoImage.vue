@@ -9,14 +9,13 @@
       <el-table-column prop="id" label="ID" width="120"></el-table-column>
       <el-table-column prop="image" label="停车场图片" width="120">
         <template slot-scope="scope">
-          <img style="height: 100px;width: 100px" :src="'http://192.168.76.56/image/'+scope.row.id+'.jpg'">
+          <img style="height: 100px;width: 100px" :src="'http://192.168.76.56/image/info_detail/'+scope.row.pid+'/'+scope.row.id+'.jpg'">
         </template>
       </el-table-column>
-      <el-table-column prop="name" label="停车场名称" width="120"></el-table-column>
       <el-table-column prop="pid" label="停车场ID" width="120"></el-table-column>
       <el-table-column prop="state" label="状态" width="120"></el-table-column>
-      <el-table-column prop="infosubmitdate" label="提交时间" width="160">
-        <template slot-scope="scope">{{ scope.row.infosubmitdate | formatDate}}</template>
+      <el-table-column prop="submitdate" label="提交时间" width="160">
+        <template slot-scope="scope">{{ scope.row.submitdate | formatDate}}</template>
       </el-table-column>
       <el-table-column label="操作" width="120">
         <template slot-scope="scope">
@@ -42,14 +41,16 @@
 <script>
     import {formatDate} from '@/utils/filters/formatDate.js'
     export default {
-      name: "listVerifiedPark",
+        name: "listVerifiedInfoImage",
+
       data(){
-        return{
-          information:[],
-          currentPage:1,  //初始页
-          pageSize:5,    //每页的数据
-        }
+          return{
+            information:[],
+            currentPage:1,  //初始页
+            pageSize:5,    //每页的数据
+          }
       },
+
 
       filters: {
         formatDate(time) {
@@ -58,7 +59,8 @@
         }
       },
 
-      methods: {
+
+      methods:{
         //初始页currentPage,初始每页数据pageSize
         handleSizeChange: function (size) {
           this.pagesize = size;
@@ -71,32 +73,9 @@
           console.log(this.information.length)
         },
 
-        disableInfo:function (id) {
-          // 获取本地token, 判断是否登录
-          let localStorageToken = localStorage.getItem("accessToken")
-          // 如果本地token不为空则设置到请求头去
-          if (localStorageToken != null) {
-            this.accessToken = localStorageToken
-          } else {
-            alert("未登录")
-            return
-          }
-          let formData = new FormData();
-          formData.append('pid',id);
-          this.$http.put("http://localhost:9001/infos-api/admin/infos/"+id,formData,{
-            params: {state: 'disable'},
-            headers: {'Authorization': 'Bearer ' + this.accessToken}
-          }).then(res=>{
-            console.log(res.data.status)
-            if(res.data.status === 'success'){
-              alert('禁用成功')
-              // location.reload();
-              this.$router.push('/backToVerified')
-            }
-          })
-        },
 
-        list () {
+        //列出所有已验证的详情
+        listVerified () {
           console.log("list的方法")
           // 获取本地token, 判断是否登录
           let localStorageToken = localStorage.getItem("accessToken")
@@ -108,19 +87,48 @@
             return
           }
           let that = this
-          this.$http.get("http://localhost:9001/infos-api/admin/infos/verified?page=1&pagesize=100",
+          this.$http.get("http://localhost:9001/infoImage-api/admin/infoimage/verified??page=1&pagesize=100",
             {
               headers: {'Authorization': 'Bearer ' + this.accessToken}
             }).then((res) => {
             console.log(res.data)
             that.information = res.data.data.list;
           });
-        }
-      },
+        },
+
+
+        //禁用已验证的详情
+        disableInfo:function (id) {
+          // 获取本地token, 判断是否登录
+          let localStorageToken = localStorage.getItem("accessToken")
+          // 如果本地token不为空则设置到请求头去
+          if (localStorageToken != null) {
+            this.accessToken = localStorageToken
+          } else {
+            alert("未登录")
+            return
+          }
+          let formData = new FormData();
+          formData.append('id',id);
+          this.$http.put("http://localhost:9001/infoImage-api/admin/infoimage/"+id,formData,{
+            params: {state: 'disable'},
+            headers: {'Authorization': 'Bearer ' + this.accessToken}
+          }).then(res=>{
+            console.log(res.data.status)
+            if(res.data.status === 'success'){
+              alert('禁用成功')
+              this.$router.push('/backToVerifiedImage')
+            }
+          })
+        },
+
+      },//method END
+
 
       created() {
-        this.list();
+          this.listVerified();
       }
+
     }
 </script>
 
