@@ -9,7 +9,9 @@
         name: "backToNoVerifiedImage",
 
       methods:{
-
+        BackToNoVerifiedImage(){
+          this.$router.push('/listNoVerifiedImage')
+        }
       }
     }
 </script>

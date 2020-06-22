@@ -27,6 +27,7 @@ import backToVerifiedImage from "../fallback/backToVerifiedImage";
 import backToDisableImage from "../fallback/backToDisableImage";
 import listDisableInfoImage from "../components/listDisableInfoImage";
 import listNoVerifiedImage from "../components/listNoVerifiedImage";
+import listInfoImage from "../components/listInfoImage";
 
 Vue.use(Router)
 
@@ -64,5 +65,6 @@ export default new Router({
     {path: '/listVerifiedImage', component: listVerifiedInfoImage},
     {path: '/listDisableImage', component: listDisableInfoImage},
     {path: '/listNoVerifiedImage', component: listNoVerifiedImage},
+    {path: '/listInfoImage', component: listInfoImage},
   ]
 })

@@ -90,7 +90,7 @@
             console.log(res.data.status)
             if(res.data.status === 'success'){
               alert('验证成功')
-              this.$router.push('/backToNoVerified');
+              this.$router.push('/backToNoVerifiedImage');
             }
           })
         },

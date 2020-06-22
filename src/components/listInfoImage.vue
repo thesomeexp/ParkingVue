@@ -3,22 +3,25 @@
       <h1 style="text-align: center">查看提交详情</h1>
       <el-table :data="information.slice((currentPage-1)*pageSize,currentPage*pageSize)"
                 border
-                style="width: fit-content;position: relative;margin: auto"
+                style="width: fit-content;position: relative;margin-left: 10%"
                 :header-cell-style="{'text-align':'center'}"
-                :cell-style="{'text-align':'center'}"
-      >
-        <el-table-column prop="id" label="评论编号" width="70%"></el-table-column>
-        <el-table-column prop="uid" label="评论用户编号" width="70%"></el-table-column>
-        <el-table-column prop="pid" label="停车场编号" width="70%"></el-table-column>
-        <el-table-column prop="content" label="评论内容" width="70%"></el-table-column>
-        <el-table-column prop="submitdate" label="评论时间" width="70%">
-          <template slot-scope="scope">{{ scope.row.submitdate | formatDate}}</template>
-        </el-table-column>
-        <el-table-column label="操作" width="70%">
+                :cell-style="{'text-align':'center'}">
+        <el-table-column prop="id" label="ID" width="120"></el-table-column>
+        <el-table-column prop="image" label="停车场图片" width="120">
           <template slot-scope="scope">
-            <el-button type="text" @click="deleteId(scope.row.id)" size="big">删除</el-button>
+            <img style="height: 100px;width: 100px" :src="'http://192.168.76.56/image/info_detail/'+scope.row.pid+'/'+scope.row.id+'.jpg'">
           </template>
         </el-table-column>
+        <el-table-column prop="pid" label="停车场ID" width="120"></el-table-column>
+        <el-table-column prop="state" label="状态" width="120"></el-table-column>
+        <el-table-column prop="submitdate" label="提交时间" width="160">
+          <template slot-scope="scope">{{ scope.row.submitdate | formatDate}}</template>
+        </el-table-column>
+<!--        <el-table-column label="操作" width="120">-->
+<!--          <template slot-scope="scope">-->
+<!--            <el-button type="text" size="big" @click="VerifiedInfo(scope.row.id)">通过验证</el-button>-->
+<!--          </template>-->
+<!--        </el-table-column>-->
       </el-table>
       <br>
       <el-pagination
@@ -61,11 +64,31 @@
           console.log(this.information.length)
         },
 
+        list(){
+          // 获取本地token, 判断是否登录
+          let localStorageToken = localStorage.getItem("accessToken")
+          // 如果本地token不为空则设置到请求头去
+          if (localStorageToken != null) {
+            this.accessToken = localStorageToken
+          } else {
+            alert("未登录")
+            return
+          }
+          let that = this
+          this.$http.get("http://localhost:9001/infoImage-api/infoimage/user?page=1&pagesize=100",
+            {
+              headers: {'Authorization': 'Bearer ' + this.accessToken}
+            }).then((res) => {
+            console.log(res.data)
+            that.information = res.data.data.list;
+          });
+        }
 
       },
 
 
       created() {
+          this.list();
       }
     }
 </script>
