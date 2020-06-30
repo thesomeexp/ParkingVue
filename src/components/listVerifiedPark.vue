@@ -3,17 +3,20 @@
     <h1 style="text-align: center">已验证停车场列表</h1>
     <el-table :data="information.slice((currentPage-1)*pageSize,currentPage*pageSize)"
               border
+              v-loading="loading"
               style="width: fit-content;position: relative;margin-left: 10%"
               :header-cell-style="{'text-align':'center'}"
               :cell-style="{'text-align':'center'}">
-      <el-table-column prop="id" label="ID" width="120"></el-table-column>
+      <el-table-column prop="id" label="停车场编号" width="120"></el-table-column>
       <el-table-column prop="image" label="停车场图片" width="120">
         <template slot-scope="scope">
           <img style="height: 100px;width: 100px" :src="'http://192.168.76.56/image/'+scope.row.id+'.jpg'">
         </template>
       </el-table-column>
       <el-table-column prop="name" label="停车场名称" width="120"></el-table-column>
-      <el-table-column prop="pid" label="停车场ID" width="120"></el-table-column>
+      <el-table-column prop="content" label="停车场描述" width="120"></el-table-column>
+      <el-table-column prop="longitude" label="经度" width="120"></el-table-column>
+      <el-table-column prop="latitude" label="纬度" width="120"></el-table-column>
       <el-table-column prop="state" label="状态" width="120"></el-table-column>
       <el-table-column prop="infosubmitdate" label="提交时间" width="160">
         <template slot-scope="scope">{{ scope.row.infosubmitdate | formatDate}}</template>

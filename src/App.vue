@@ -1,6 +1,13 @@
 <template>
     <div>
-      <el-menu class="el-menu-demo" mode="horizontal" @select="handleSelect" v-show="!(path === '/login')">
+      <el-menu
+         class="el-menu-demo"
+         mode="horizontal"
+         @select="handleSelect"
+         v-show="!(path === '/login')"
+         :default-active="activeIndex"
+         active-text-color="#29916E"
+      >
         <el-menu-item index="1">
           <i class="el-icon-house"/><a href="/home">首页</a>
         </el-menu-item>
@@ -37,14 +44,16 @@
 <script>
 export default {
   name: 'App',
+  data(){
+    return{
+      activeIndex: '1',
+      path:''
+    }
+  },
+
   methods:{
     handleSelect(key, keyPath) {
       console.log(key, keyPath);
-    }
-  },
-  data(){
-    return{
-      path:''
     }
   },
 

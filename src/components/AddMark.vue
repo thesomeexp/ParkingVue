@@ -15,6 +15,7 @@
             <el-option label="十分精准" value="5"></el-option>
           </el-select>
         </el-form-item>
+
         <el-form-item label="停车场易寻度" prop="mark.easytofind">
           <el-select v-model="mark.easytofind" size="medium" placeholder="请选择评分" style="max-height: max-content">
             <el-option label="找不到" value="0"></el-option>

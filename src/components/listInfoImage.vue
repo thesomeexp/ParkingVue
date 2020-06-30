@@ -3,7 +3,8 @@
       <h1 style="text-align: center">查看提交详情</h1>
       <el-table :data="information.slice((currentPage-1)*pageSize,currentPage*pageSize)"
                 border
-                style="width: fit-content;position: relative;margin-left: 10%"
+                v-loading="loading"
+                style="width: fit-content;position: relative;margin-left: 27%"
                 :header-cell-style="{'text-align':'center'}"
                 :cell-style="{'text-align':'center'}">
         <el-table-column prop="id" label="ID" width="120"></el-table-column>
@@ -17,15 +18,10 @@
         <el-table-column prop="submitdate" label="提交时间" width="160">
           <template slot-scope="scope">{{ scope.row.submitdate | formatDate}}</template>
         </el-table-column>
-<!--        <el-table-column label="操作" width="120">-->
-<!--          <template slot-scope="scope">-->
-<!--            <el-button type="text" size="big" @click="VerifiedInfo(scope.row.id)">通过验证</el-button>-->
-<!--          </template>-->
-<!--        </el-table-column>-->
       </el-table>
       <br>
       <el-pagination
-        style="margin-left: 30%"
+        style="margin-left: 38%"
         background
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
@@ -39,6 +35,7 @@
 </template>
 
 <script>
+    import {formatDate} from '@/utils/filters/formatDate.js'
     export default {
         name: "listInfoImage",
 
@@ -50,6 +47,12 @@
         }
       },
 
+      filters: {
+        formatDate(time) {
+          let date = new Date(time);
+          return formatDate(date, 'yyyy-MM-dd hh:mm:ss');
+        }
+      },
 
       methods:{
         //初始页currentPage,初始每页数据pageSize

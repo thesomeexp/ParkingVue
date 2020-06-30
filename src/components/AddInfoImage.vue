@@ -1,7 +1,7 @@
 <template>
     <div>
       <h1 style="text-align: center">添加停车场详情</h1>
-      <el-form :model="parking" status-icon ref="parking" label-width="142px" class="demo-ruleForm" style="width: 300px;margin-top: 10%">
+      <el-form :model="parking" status-icon ref="parking" label-width="142px" class="demo-ruleForm" style="width: 300px;margin: 3% 35% ">
         <el-form-item label="停车场ID" prop="parking.pid">
           <el-input type="text" v-model="parking.pid" auto-complete="off"></el-input>
         </el-form-item>

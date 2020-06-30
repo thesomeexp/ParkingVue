@@ -3,7 +3,8 @@
     <h1 style="text-align: center">已禁用停车场列表</h1>
     <el-table :data="information.slice((currentPage-1)*pageSize,currentPage*pageSize)"
               border
-              style="width: fit-content;position: relative;margin-left: 10%"
+              v-loading="loading"
+              style="width: fit-content;position: relative;margin-left: 23%"
               :header-cell-style="{'text-align':'center'}"
               :cell-style="{'text-align':'center'}">
       <el-table-column prop="id" label="ID" width="120"></el-table-column>

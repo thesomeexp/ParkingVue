@@ -3,6 +3,7 @@
       <h1 style="text-align: center">未验证停车场列表</h1>
       <el-table :data="information.slice((currentPage-1)*pageSize,currentPage*pageSize)"
                 border
+                v-loading="loading"
                 style="width: fit-content;position: relative;margin-left: 10%"
                 :header-cell-style="{'text-align':'center'}"
                 :cell-style="{'text-align':'center'}">

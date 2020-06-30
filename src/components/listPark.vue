@@ -18,6 +18,7 @@
         <br>
       <el-table :data="information.slice((currentPage-1)*pageSize,currentPage*pageSize)"
                 border
+                v-loading="loading"
                 style="width: fit-content;position: relative;margin-left: 10%"
                 :header-cell-style="{'text-align':'center'}"
                 :cell-style="{'text-align':'center'}"
@@ -37,7 +38,7 @@
     </div>
     <br>
     <el-pagination
-      style="margin-left: 40%"
+      style="margin-left: 30%"
       background
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
