@@ -8,6 +8,8 @@ import qs from 'qs'
 /* 完整引入elmentui*/
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+// 引入Global
+import global_ from './utils/Global'
 
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
