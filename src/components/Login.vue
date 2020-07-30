@@ -6,9 +6,9 @@
       </div>
 
       <el-form-item prop="phone">
-        <sformpan class="svg-container">
+        <span class="svg-container">
           <i class="el-icon-user-solid"/>
-        </sformpan>
+        </span>
         <el-input
           ref="phone"
           v-model="information.phone"
