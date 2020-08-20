@@ -10,7 +10,7 @@
         <el-table-column prop="id" label="ID" width="120"></el-table-column>
         <el-table-column prop="image" label="停车场图片" width="120">
           <template slot-scope="scope">
-            <img style="height: 100px;width: 100px" :src="'http://192.168.76.56/image/info_detail/'+scope.row.pid+'/'+scope.row.id+'.jpg'">
+            <img style="height: 100px;width: 100px" :src="'http://192.168.80.10/image/info_detail/'+scope.row.pid+'/'+scope.row.id+'.jpg'">
           </template>
         </el-table-column>
         <el-table-column prop="pid" label="停车场ID" width="120"></el-table-column>

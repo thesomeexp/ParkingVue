@@ -15,7 +15,7 @@
           <el-input v-model.number="ruleForm2.phone"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="Register()">提交</el-button>
+          <el-button type="primary" @click="Register">提交</el-button>
           <el-button @click="resetForm('ruleForm2')">重置</el-button>
         </el-form-item>
       </el-form>
@@ -77,7 +77,7 @@
             console.log("表单姓名密码" + this.ruleForm2.name + this.ruleForm2.password)
             console.log("转换的formData" + str)
             this.$http
-              .post('http://localhost:9001/user-api/register',
+              .post(this.GLOBAL.gateway+'http://localhost:9001/user-api/register',
                 str)
               .then((response)=>{
                 console.log(response)
