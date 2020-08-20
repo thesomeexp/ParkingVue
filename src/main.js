@@ -8,7 +8,6 @@ import qs from 'qs'
 /* 完整引入elmentui*/
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
-import SvgIcon from '@/components/SvgIcon'// svg component
 // 引入Global
 import global_ from './utils/Global'
 
@@ -17,7 +16,6 @@ Vue.config.productionTip = false
 Vue.prototype.$http = axios
 Vue.prototype.$qs = qs;
 Vue.use(ElementUI);
-Vue.component('svg-icon', SvgIcon)
 
 /* eslint-disable no-new */
 new Vue({

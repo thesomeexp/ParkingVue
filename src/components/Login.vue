@@ -11,7 +11,7 @@
         </span>
         <el-input
           ref="phone"
-          v-model=git"information.phone"
+          v-model="information.phone"
           placeholder="Phone"
           name="phone"
           type="text"
