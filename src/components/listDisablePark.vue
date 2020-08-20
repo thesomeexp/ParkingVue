@@ -3,14 +3,13 @@
       <h1 style="text-align: center">已禁用停车场列表</h1>
       <el-table :data="information.slice((currentPage-1)*pageSize,currentPage*pageSize)"
                 border
-                v-loading="loading"
                 style="width: fit-content;position: relative;margin-left: 10%"
                 :header-cell-style="{'text-align':'center'}"
                 :cell-style="{'text-align':'center'}">
         <el-table-column prop="id" label="停车场编号" width="120"></el-table-column>
         <el-table-column prop="image" label="停车场图片" width="120">
           <template slot-scope="scope">
-            <img style="height: 100px;width: 100px" :src="'http://192.168.80.10/image/'+scope.row.id+'.jpg'">
+            <img style="height: 100px;width: 100px" :src="link+'image/'+scope.row.id+'.jpg'">
           </template>
         </el-table-column>
         <el-table-column prop="name" label="停车场名称" width="120"></el-table-column>
@@ -43,11 +42,13 @@
 </template>
 
 <script>
-    import {formatDate} from '@/utils/filters/formatDate.js'
+    import {formatDate} from '../utils/filters/formatDate.js'
+    import Global from "../utils/Global";
     export default {
         name: "listDisablePark",
         data(){
           return{
+            link: Global.pre_url,
             information:[],
             currentPage:1,  //初始页
             pageSize:5,    //每页的数据
@@ -87,7 +88,7 @@
             // let timestamp = Date.parse(new Date());
             let formData = new FormData();
             formData.append('pid',id);
-            this.$http.put("http://localhost:9001/infos-api/admin/infos/"+id,formData,{
+            this.$http.put(Global.gateway+"infos-api/admin/infos/"+id,formData,{
               params: {state: 'verified'},
               headers: {'Authorization': 'Bearer ' + this.accessToken},
             }).then(res=>{
@@ -111,7 +112,7 @@
               return
             }
             let that = this
-            this.$http.get("http://localhost:9001/infos-api/admin/infos/disable?page=1&pagesize=100",
+            this.$http.get(Global.gateway+"infos-api/admin/infos/disable?page=1&pagesize=100",
               {
                 headers: {'Authorization': 'Bearer ' + this.accessToken}
               }).then((res) => {

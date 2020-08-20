@@ -2,7 +2,7 @@
     <div>
       <h1 style="text-align: center">添加停车场详情</h1>
       <el-form :model="parking" status-icon ref="parking" label-width="142px" class="demo-ruleForm" style="width: 300px;margin: 3% 35% ">
-        <el-form-item label="停车场ID" prop="parking.pid">
+        <el-form-item label="停车场ID" prop="pid">
           <el-input type="text" v-model="parking.pid" auto-complete="off"></el-input>
         </el-form-item>
         <el-form-item label="停车场图片">
@@ -15,12 +15,14 @@
 </template>
 
 <script>
+    import Global from "../utils/Global";
+
     export default {
         name: "AddInfoImage",
 
       data(){
           return{
-            uri: 'http://localhost:9001/infoImage-api/infoimage',
+            uri: Global.gateway+'infoImage-api/infoimage',
             accessToken: '',
             file: null,
             parking:{id:''}

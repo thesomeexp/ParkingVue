@@ -18,7 +18,6 @@
 
       <el-table :data="information.slice((currentPage-1)*pageSize,currentPage*pageSize)"
                 border
-                v-loading="loading"
                 style="width: fit-content;position: relative;margin:0 19%"
                 :header-cell-style="{'text-align':'center'}"
                 :cell-style="{'text-align':'center'}"
@@ -53,7 +52,8 @@
 </template>
 
 <script>
-    import {formatDate} from '@/utils/filters/formatDate.js'
+    import {formatDate} from '../utils/filters/formatDate.js'
+    import Global from "../utils/Global";
     export default {
         name: "listMarkById",
         data(){
@@ -102,7 +102,7 @@
               return
             }
             let that = this;
-            this.$http.get("http://localhost:9001/review-api/review/" + this.pid, {
+            this.$http.get(Global.gateway+"review-api/review/" + this.pid, {
               headers: {'Authorization': 'Bearer ' + this.accessToken}
             }).then(res => {
               console.log(res.data.data.list)
@@ -125,7 +125,7 @@
               return
             }
             let that = this
-            this.$http.get("http://localhost:9001/review-api/review?page=1&pagesize=100",
+            this.$http.get(Global.gateway+"review-api/review?page=1&pagesize=100",
               {
                 headers: {
                   'Authorization': 'Bearer ' + this.accessToken
@@ -155,7 +155,7 @@
               cancelButtonText: '取消',
               type: 'warning'
             }).then(() => {
-              this.$http.delete("http://localhost:9001/review-api/admin/review/" + id, {
+              this.$http.delete(Global.gateway+"review-api/admin/review/" + id, {
                 headers: {'Authorization': 'Bearer ' + this.accessToken}
               }).then(res => {
                 console.log(res.data)

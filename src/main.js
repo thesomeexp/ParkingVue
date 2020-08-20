@@ -9,9 +9,9 @@ import qs from 'qs'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 // 引入Global
-import global_ from './utils/Global'
+import Global from './utils/Global'
 
-Vue.prototype.GLOBAL = global_;
+Vue.prototype.GLOBAL = Global;
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
 Vue.prototype.$qs = qs;

@@ -3,14 +3,13 @@
       <h1 style="text-align: center">查看提交详情</h1>
       <el-table :data="information.slice((currentPage-1)*pageSize,currentPage*pageSize)"
                 border
-                v-loading="loading"
                 style="width: fit-content;position: relative;margin-left: 27%"
                 :header-cell-style="{'text-align':'center'}"
                 :cell-style="{'text-align':'center'}">
         <el-table-column prop="id" label="ID" width="120"></el-table-column>
         <el-table-column prop="image" label="停车场图片" width="120">
           <template slot-scope="scope">
-            <img style="height: 100px;width: 100px" :src="'http://192.168.80.10/image/info_detail/'+scope.row.pid+'/'+scope.row.id+'.jpg'">
+            <img style="height: 100px;width: 100px" :src="link+'image/info_detail/'+scope.row.pid+'/'+scope.row.id+'.jpg'">
           </template>
         </el-table-column>
         <el-table-column prop="pid" label="停车场ID" width="120"></el-table-column>
@@ -35,12 +34,14 @@
 </template>
 
 <script>
-    import {formatDate} from '@/utils/filters/formatDate.js'
+    import {formatDate} from '../utils/filters/formatDate.js'
+    import Global from "../utils/Global";
     export default {
         name: "listInfoImage",
 
       data(){
         return{
+          link: Global.pre_url,
           information:[],
           currentPage: 1,  //初始页
           pageSize: 5,    //每页的数据
@@ -78,7 +79,7 @@
             return
           }
           let that = this
-          this.$http.get("http://localhost:9001/infoImage-api/infoimage/user?page=1&pagesize=100",
+          this.$http.get(Global.gateway+"infoImage-api/infoimage/user?page=1&pagesize=100",
             {
               headers: {'Authorization': 'Bearer ' + this.accessToken}
             }).then((res) => {

@@ -2,7 +2,7 @@
     <div>
       <h1 style="text-align: center">评论</h1>
       <el-form :model="mark" status-icon ref="mark" label-width="165px" class="demo-ruleForm" style="width: 380px">
-        <el-form-item label="停车场ID" prop="mark.pid">
+        <el-form-item label="停车场ID" prop="pid">
           <el-input type="text" v-model="mark.pid" auto-complete="off"></el-input>
         </el-form-item>
         <el-form-item label="定位精确度评分">
@@ -16,7 +16,7 @@
           </el-select>
         </el-form-item>
 
-        <el-form-item label="停车场易寻度" prop="mark.easytofind">
+        <el-form-item label="停车场易寻度" prop="easytofind">
           <el-select v-model="mark.easytofind" size="medium" placeholder="请选择评分" style="max-height: max-content">
             <el-option label="找不到" value="0"></el-option>
             <el-option label="难寻" value="1"></el-option>
@@ -26,7 +26,7 @@
             <el-option label="十分易寻" value="5"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="新增评论" prop="mark.content">
+        <el-form-item label="新增评论" prop="content">
           <el-input type="text" v-model="mark.content" auto-complete="off"></el-input>
         </el-form-item>
         <el-button type="primary" plain @click="add" style="margin: auto">提交</el-button>
@@ -36,6 +36,8 @@
 </template>
 
 <script>
+    import Global from "../utils/Global";
+
     export default {
         name: "AddMark",
         data(){
@@ -78,7 +80,7 @@
               //将表单对象转换成formdata
               let str = this.$qs.stringify(req_data)
               let that = this;
-              this.$http.post("http://localhost:9001/review-api/review/" + this.mark.pid,
+              this.$http.post(Global.gateway+"review-api/review/" + this.mark.pid,
                 formData,
                 {
                   headers: {

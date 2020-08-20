@@ -18,7 +18,6 @@
         <br>
       <el-table :data="information.slice((currentPage-1)*pageSize,currentPage*pageSize)"
                 border
-                v-loading="loading"
                 style="width: fit-content;position: relative;margin-left: 10%"
                 :header-cell-style="{'text-align':'center'}"
                 :cell-style="{'text-align':'center'}"
@@ -52,6 +51,8 @@
 </template>
 
 <script>
+  import Global from "../utils/Global";
+
   export default {
     name: "listPark",
     data() {
@@ -104,7 +105,7 @@
           return
         }
         let that = this
-        this.$http.get("http://localhost:9001/infos-api/admin/infos?pagesize=100",
+        this.$http.get(Global.gateway+"infos-api/admin/infos?pagesize=100",
           {
             headers: {
               'Authorization': 'Bearer ' + this.accessToken
@@ -122,7 +123,7 @@
       search: function () {
         let timestamp = Date.parse(new Date());
         let that = this
-        this.$http.get("http://localhost:9001/infos-api/infos",
+        this.$http.get(Global.gateway+"http://localhost:9001/infos-api/infos",
           {
             params: {location: this.location},
             headers: {timestamp: timestamp}
