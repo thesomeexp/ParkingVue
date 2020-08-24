@@ -16,7 +16,7 @@
       <br>
       <br>
 
-      <el-table :data="information.slice((currentPage-1)*pageSize,currentPage*pageSize)"
+      <el-table :data="reviewList.slice((currentPage-1)*pageSize,currentPage*pageSize)"
                 border
                 style="width: fit-content;position: relative;margin:0 19%"
                 :header-cell-style="{'text-align':'center'}"
@@ -45,7 +45,7 @@
         :current-page="currentPage"
         :page-size="pageSize"
         layout="total, prev, pager, next"
-        :total="information.length">
+        :total="reviewList.length">
       </el-pagination>
       <router-view/>
     </div>
@@ -60,9 +60,9 @@
           return{
             pid:'',         //停车场id
             id:'',          //评论id
-            information:[],
+            reviewList:[],
             currentPage: 1,  //初始页
-            pageSize: 5,    //每页的数据
+            pageSize: 3,    //每页的数据
           }
         },
 
@@ -106,7 +106,7 @@
               headers: {'Authorization': 'Bearer ' + this.accessToken}
             }).then(res => {
               console.log(res.data.data.list)
-              that.information = res.data.data.list
+              that.reviewList = res.data.data.list
 
             })
           },
@@ -132,7 +132,7 @@
                 }
               }).then((res) => {
               console.log(res.data.data)
-              that.information = res.data.data;
+              that.reviewList = res.data.data.list;
             });
           },
 

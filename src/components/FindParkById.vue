@@ -20,60 +20,60 @@
       </tr>
     </table>
     <br>
-    <table class="el-table" style="width: 53%;position: relative;margin-left: 23%">
-      <tr>
-        <td>t0</td>
-        <td>t1</td>
-        <td>t2</td>
-        <td>t3</td>
-        <td>t4</td>
-        <td>t5</td>
-        <td>t6</td>
-        <td>t7</td>
-        <td>t8</td>
-        <td>t9</td>
-        <td>t10</td>
-        <td>t11</td>
-        <td>t12</td>
-        <td>t13</td>
-        <td>t14</td>
-        <td>t15</td>
-        <td>t16</td>
-        <td>t17</td>
-        <td>t18</td>
-        <td>t19</td>
-        <td>t20</td>
-        <td>t21</td>
-        <td>t22</td>
-        <td>t23</td>
-      </tr>
-      <tr v-for="info in information">
-        <td>{{info.t0}}</td>
-        <td>{{info.t1}}</td>
-        <td>{{info.t2}}</td>
-        <td>{{info.t3}}</td>
-        <td>{{info.t4}}</td>
-        <td>{{info.t5}}</td>
-        <td>{{info.t6}}</td>
-        <td>{{info.t7}}</td>
-        <td>{{info.t8}}</td>
-        <td>{{info.t9}}</td>
-        <td>{{info.t10}}</td>
-        <td>{{info.t11}}</td>
-        <td>{{info.t12}}</td>
-        <td>{{info.t13}}</td>
-        <td>{{info.t14}}</td>
-        <td>{{info.t15}}</td>
-        <td>{{info.t16}}</td>
-        <td>{{info.t17}}</td>
-        <td>{{info.t18}}</td>
-        <td>{{info.t19}}</td>
-        <td>{{info.t20}}</td>
-        <td>{{info.t21}}</td>
-        <td>{{info.t22}}</td>
-        <td>{{info.t23}}</td>
-      </tr>
-    </table>
+<!--    <table class="el-table" style="width: 53%;position: relative;margin-left: 23%">-->
+<!--      <tr>-->
+<!--        <td>t0</td>-->
+<!--        <td>t1</td>-->
+<!--        <td>t2</td>-->
+<!--        <td>t3</td>-->
+<!--        <td>t4</td>-->
+<!--        <td>t5</td>-->
+<!--        <td>t6</td>-->
+<!--        <td>t7</td>-->
+<!--        <td>t8</td>-->
+<!--        <td>t9</td>-->
+<!--        <td>t10</td>-->
+<!--        <td>t11</td>-->
+<!--        <td>t12</td>-->
+<!--        <td>t13</td>-->
+<!--        <td>t14</td>-->
+<!--        <td>t15</td>-->
+<!--        <td>t16</td>-->
+<!--        <td>t17</td>-->
+<!--        <td>t18</td>-->
+<!--        <td>t19</td>-->
+<!--        <td>t20</td>-->
+<!--        <td>t21</td>-->
+<!--        <td>t22</td>-->
+<!--        <td>t23</td>-->
+<!--      </tr>-->
+<!--      <tr v-for="info in information">-->
+<!--        <td>{{info.t0}}</td>-->
+<!--        <td>{{info.t1}}</td>-->
+<!--        <td>{{info.t2}}</td>-->
+<!--        <td>{{info.t3}}</td>-->
+<!--        <td>{{info.t4}}</td>-->
+<!--        <td>{{info.t5}}</td>-->
+<!--        <td>{{info.t6}}</td>-->
+<!--        <td>{{info.t7}}</td>-->
+<!--        <td>{{info.t8}}</td>-->
+<!--        <td>{{info.t9}}</td>-->
+<!--        <td>{{info.t10}}</td>-->
+<!--        <td>{{info.t11}}</td>-->
+<!--        <td>{{info.t12}}</td>-->
+<!--        <td>{{info.t13}}</td>-->
+<!--        <td>{{info.t14}}</td>-->
+<!--        <td>{{info.t15}}</td>-->
+<!--        <td>{{info.t16}}</td>-->
+<!--        <td>{{info.t17}}</td>-->
+<!--        <td>{{info.t18}}</td>-->
+<!--        <td>{{info.t19}}</td>-->
+<!--        <td>{{info.t20}}</td>-->
+<!--        <td>{{info.t21}}</td>-->
+<!--        <td>{{info.t22}}</td>-->
+<!--        <td>{{info.t23}}</td>-->
+<!--      </tr>-->
+<!--    </table>-->
 
     <div style="width: 55%;height: 55%;margin: 3% 23%">
       <canvas id="myChart" ></canvas>
@@ -88,6 +88,7 @@
 <script>
   import {formatDate} from '@/utils/filters/formatDate.js'
   import Chart from 'chart.js'
+  import Global from "../utils/Global";
   export default {
         name: "FindParkById",
         data(){
@@ -122,7 +123,7 @@
             }
             let that = this
             this.id = this.$route.query.id
-            this.$http.get("http://localhost:9001/infos-api/infos/" + this.id, {
+            this.$http.get(Global.gateway + "/infos-api/infos/" + this.id, {
               headers: {
                 'Authorization': 'Bearer ' + this.accessToken
               }

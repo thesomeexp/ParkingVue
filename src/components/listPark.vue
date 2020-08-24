@@ -23,8 +23,13 @@
                 :cell-style="{'text-align':'center'}"
       >
         <el-table-column prop="id" label="ID" width="120"></el-table-column>
+        <el-table-column prop="image" label="停车场图片" width="120">
+          <template slot-scope="scope">
+            <img style="height: 100px;width: 100px" :src="link+'image/'+scope.row.id+'.jpg'">
+          </template>
+        </el-table-column>
         <el-table-column prop="name" label="停车场名称" width="120"></el-table-column>
-        <el-table-column prop="content" label="图片" width="120"></el-table-column>
+        <el-table-column prop="content" label="停车场描述" width="120"></el-table-column>
         <el-table-column prop="longitude" label="停车场ID" width="120"></el-table-column>
         <el-table-column prop="uid" label="停车用户编号" width="120"></el-table-column>
         <el-table-column prop="state" label="状态" width="120"></el-table-column>
@@ -57,11 +62,12 @@
     name: "listPark",
     data() {
       return {
+        link: Global.pre_url,
         location: '',
         id: '',
         information: [],
         currentPage: 1,  //初始页
-        pageSize: 5,    //每页的数据
+        pageSize: 3,    //每页的数据
       }
     },
 
@@ -69,13 +75,6 @@
     methods: {
       handleWatch(id){
         console.log(id)
-        this.information={
-          id:id.id,
-          name:id.name,
-          infosubmitdate:id.infosubmitdate,
-          state:id.state,
-          stateupdatedate:id.stateupdatedate
-        }
         this.$router.push({
           path:'/findById/',
           query:{id: id}
@@ -123,10 +122,10 @@
       search: function () {
         let timestamp = Date.parse(new Date());
         let that = this
-        this.$http.get(Global.gateway+"http://localhost:9001/infos-api/infos",
+        this.$http.get(Global.gateway+"infos-api/infos",
           {
             params: {location: this.location},
-            headers: {timestamp: timestamp}
+            headers: {'Authorization': 'Bearer ' + this.accessToken}
           }).then(res => {
           that.information = res.data.data.infos;
           console.log(res.data.status)

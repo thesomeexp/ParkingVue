@@ -51,6 +51,8 @@
 
 <script>
 
+  import Global from "../utils/Global";
+
   export default {
     name: 'Login',
     data() {
@@ -106,7 +108,7 @@
           if (valid) {
             this.loading = true
             this.$http
-              .post('http://localhost:9001/user-api/login',
+              .post(Global.gateway + 'user-api/login',
                 str)
               .then((response) => {
                 console.log('响应返回结果: ')

@@ -57,7 +57,7 @@
         link: Global.pre_url,
         id:'',
         currentPage: 1,  //初始页
-        pageSize: 5,    //每页的数据
+        pageSize: 3,    //每页的数据
         imageURL:""
       }
     },
